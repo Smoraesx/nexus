@@ -41,105 +41,100 @@ a{text-decoration:none;color:inherit;}
 .b3{width:300px;height:300px;background:var(--or);top:50%;left:55%;opacity:0.04;}
 
 /* ── LAYOUT ── */
-.app{display:flex;height:100vh;overflow:hidden;position:relative;z-index:1;}
+.app{display:flex;flex-direction:column;height:100vh;overflow:hidden;position:relative;z-index:1;}
 
 /* ══════════════════════════════════
-   LEFT PANEL
+   TOP NAV (was left sidebar)
 ══════════════════════════════════ */
-.dash-panel{
-  width:264px;flex-shrink:0;height:100vh;
-  background:rgba(255,255,255,0.03);
-  backdrop-filter:var(--glass-blur);
-  border-right:1px solid var(--glass-border);
-  display:flex;flex-direction:column;overflow:hidden;
-  transition:width .3s cubic-bezier(.4,0,.2,1);
-  position:relative;z-index:10;
-  box-shadow:2px 0 24px rgba(0,0,0,0.3);
-}
-.dash-panel::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,var(--glass-shine),transparent);
-}
-.app.in-topic .dash-panel{width:182px;}
-
-/* cover */
-.dp-cover{height:120px;flex-shrink:0;position:relative;overflow:hidden;background:#0f0f0f;}
-.dp-cover img{width:100%;height:100%;object-fit:cover;}
-.dp-cover::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,0.6));}
-.dp-cover-edit{
-  position:absolute;top:8px;right:8px;z-index:2;
-  width:26px;height:26px;border-radius:7px;
-  background:rgba(0,0,0,0.5);backdrop-filter:blur(6px);
-  border:1px solid rgba(255,255,255,0.15);
-  display:grid;place-items:center;color:rgba(255,255,255,.7);
-  cursor:pointer;opacity:0;transition:.15s;
-}
-.dp-cover:hover .dp-cover-edit{opacity:1;}
-.app.in-topic .dp-cover{height:56px;}
-.app.in-topic .dp-cover img{opacity:.4;}
-
-/* profile */
-.dp-profile{padding:14px 16px 12px;border-bottom:1px solid var(--glass-border);position:relative;}
-.dp-avatar{
-  width:46px;height:46px;border-radius:50%;
-  background:radial-gradient(circle at 30% 30%,var(--orl),var(--ord));
-  display:grid;place-items:center;font-size:15px;font-weight:800;
-  margin-bottom:10px;margin-top:-23px;position:relative;z-index:1;
-  border:2px solid rgba(255,255,255,0.12);
-  box-shadow:0 4px 16px rgba(139,92,246,0.35),inset 0 1px 0 rgba(255,255,255,0.25);
-}
-.dp-name{font-size:14px;font-weight:700;margin-bottom:2px;letter-spacing:-.01em;}
-.dp-lvl{font-size:11px;color:var(--or);font-weight:600;margin-bottom:10px;}
-.xp-bar-sm{height:3px;background:rgba(255,255,255,0.08);border-radius:99px;overflow:hidden;margin-bottom:4px;position:relative;}
-.xp-bar-sm-f{height:100%;background:linear-gradient(90deg,var(--ord),var(--orl));border-radius:99px;transition:width .7s cubic-bezier(.34,1.56,.64,1);position:relative;}
-.xp-bar-sm-f::after{content:'';position:absolute;right:0;top:-2px;width:7px;height:7px;background:#fff;border-radius:50%;border:1.5px solid var(--orl);box-shadow:0 0 6px var(--or);}
-.xp-sm-lbl{display:flex;justify-content:space-between;font-size:9.5px;color:var(--t3);}
-.app.in-topic .dp-profile{padding:10px 12px;}
-.app.in-topic .dp-avatar{width:32px;height:32px;font-size:11px;margin-top:-16px;}
-.app.in-topic .dp-name{font-size:12px;}
-.app.in-topic .dp-lvl{font-size:10px;margin-bottom:6px;}
-
-/* nav */
-.dp-nav{padding:8px 10px;flex:1;overflow-y:auto;}
-.dn-label{font-size:9px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--t4);padding:0 6px;margin:10px 0 4px;}
+.tb-nav{display:flex;align-items:center;gap:4px;flex:1;overflow-x:auto;scrollbar-width:none;}
+.tb-nav::-webkit-scrollbar{display:none;}
 .dn-item{
-  display:flex;align-items:center;gap:8px;padding:8px 10px;
-  border-radius:9px;cursor:pointer;color:var(--t2);
-  font-size:12px;font-weight:500;margin-bottom:2px;
-  transition:.14s;user-select:none;position:relative;
+  display:flex;align-items:center;gap:7px;padding:8px 13px;
+  border-radius:9px;cursor:pointer;color:var(--t2);white-space:nowrap;
+  font-size:12.5px;font-weight:600;
+  transition:.16s cubic-bezier(.4,0,.2,1);user-select:none;position:relative;
+  flex-shrink:0;
 }
-.dn-item:hover{background:rgba(255,255,255,0.06);color:var(--t1);}
+.dn-item:hover{background:rgba(255,255,255,0.06);color:var(--t1);transform:translateY(-1px);}
+.dn-item:active{transform:translateY(0) scale(.97);}
 .dn-item.on{
-  background:var(--org);color:var(--or);font-weight:600;
+  background:var(--org);color:var(--or);font-weight:700;
   box-shadow:0 2px 12px rgba(139,92,246,0.2),inset 0 1px 0 rgba(255,255,255,0.08);
   border:1px solid rgba(139,92,246,0.2);
 }
-.dn-item svg{flex-shrink:0;opacity:.55;}
+.dn-item svg{flex-shrink:0;opacity:.6;transition:.16s;}
 .dn-item.on svg{opacity:1;}
-.dn-badge{margin-left:auto;background:rgba(255,255,255,0.08);border-radius:99px;font-size:9px;font-weight:700;padding:1px 6px;color:var(--t3);display:none;}
+.dn-badge{background:rgba(255,255,255,0.1);border-radius:99px;font-size:9px;font-weight:700;padding:1px 6px;color:var(--t3);display:none;}
 .dn-badge.show{display:inline-block;}
 .dn-item.on .dn-badge{background:rgba(139,92,246,0.25);color:var(--or);}
 
-/* daily summary */
-.dp-daily{padding:12px 16px;border-top:1px solid var(--glass-border);overflow-y:auto;flex:1;}
-.app.in-topic .dp-daily{display:none;}
-.ds-section{margin-bottom:14px;}
-.ds-title{font-size:9px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--t3);margin-bottom:8px;}
+/* profile pill (top-right) */
+.tn-profile{
+  display:flex;align-items:center;gap:9px;padding:5px 12px 5px 5px;
+  border-radius:99px;background:rgba(255,255,255,0.04);
+  border:1px solid var(--glass-border);flex-shrink:0;
+  box-shadow:inset 0 1px 0 var(--glass-shine);
+}
+.tn-avatar{
+  width:26px;height:26px;border-radius:50%;flex-shrink:0;
+  background:radial-gradient(circle at 30% 30%,var(--orl),var(--ord));
+  display:grid;place-items:center;font-size:10px;font-weight:800;
+  border:1.5px solid rgba(255,255,255,0.15);
+  box-shadow:0 2px 8px rgba(139,92,246,0.4);
+}
+.tn-xpwrap{display:flex;flex-direction:column;gap:3px;min-width:108px;}
+.xp-bar-sm{height:3px;background:rgba(255,255,255,0.08);border-radius:99px;overflow:hidden;margin-bottom:1px;position:relative;}
+.xp-bar-sm-f{height:100%;background:linear-gradient(90deg,var(--ord),var(--orl));border-radius:99px;transition:width .7s cubic-bezier(.34,1.56,.64,1);position:relative;}
+.xp-bar-sm-f::after{content:'';position:absolute;right:0;top:-2px;width:7px;height:7px;background:#fff;border-radius:50%;border:1.5px solid var(--orl);box-shadow:0 0 6px var(--or);}
+.xp-sm-lbl{display:flex;justify-content:space-between;font-size:9px;color:var(--t3);}
+.tn-lvl{font-size:10px;color:var(--or);font-weight:700;}
+
+/* dashboard cover / profile hero */
+.dash-cover{
+  position:relative;height:190px;border-radius:18px;overflow:hidden;
+  background:#0f0f0f;margin-bottom:22px;
+  border:1px solid var(--glass-border);box-shadow:var(--shadow-md);
+}
+.dash-cover img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.4,0,.2,1);}
+.dash-cover:hover img{transform:scale(1.035);}
+.dash-cover::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.25) 55%,transparent 100%);}
+.dash-cover::before{content:'';position:absolute;top:0;left:0;width:50%;height:100%;background:linear-gradient(105deg,rgba(255,255,255,0.07) 0%,transparent 50%);z-index:1;pointer-events:none;}
+.dash-cover-edit{
+  position:absolute;top:12px;right:12px;z-index:3;
+  display:flex;align-items:center;gap:6px;
+  background:rgba(0,0,0,0.55);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.15);border-radius:9px;
+  padding:6px 12px;font-size:11px;font-weight:600;
+  color:rgba(255,255,255,.75);cursor:pointer;transition:.15s;
+}
+.dash-cover-edit:hover{color:#fff;border-color:rgba(255,255,255,.3);background:rgba(0,0,0,0.7);transform:translateY(-1px);}
+.dash-cover-info{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:18px 22px;display:flex;align-items:flex-end;gap:14px;}
+.dash-avatar-lg{
+  width:56px;height:56px;border-radius:50%;flex-shrink:0;
+  background:radial-gradient(circle at 30% 30%,var(--orl),var(--ord));
+  display:grid;place-items:center;font-size:18px;font-weight:800;
+  border:3px solid rgba(10,10,10,0.85);box-shadow:0 4px 16px rgba(139,92,246,0.4);
+}
+.dash-name{font-size:18px;font-weight:900;letter-spacing:-.01em;text-shadow:0 2px 10px rgba(0,0,0,.5);}
+.dash-greeting-sm{font-size:12px;color:rgba(255,255,255,.7);margin-top:2px;}
+
+/* resumo do dia (was daily sidebar) */
 .task-mini{display:flex;align-items:center;gap:7px;padding:5px 0;cursor:default;}
 .task-mini:not(:last-child){border-bottom:1px solid rgba(255,255,255,0.05);}
 .chk-mini{width:15px;height:15px;border:1.5px solid rgba(255,255,255,0.15);border-radius:4px;display:grid;place-items:center;flex-shrink:0;cursor:pointer;transition:.12s;background:rgba(255,255,255,0.03);}
 .chk-mini.on{background:var(--or);border-color:var(--or);box-shadow:0 2px 8px rgba(139,92,246,0.4);}
 .chk-mini svg{opacity:0;transition:.1s;}
-.chk-mini.on svg{opacity:1;}
+.chk-mini.on svg{opacity:1;animation:popIn .25s cubic-bezier(.34,1.56,.64,1);}
 .task-mini-txt{font-size:11.5px;font-weight:500;flex:1;line-height:1.3;}
 .task-mini-txt.done{color:var(--t3);text-decoration:line-through;}
-.water-mini-row{display:flex;gap:4px;flex-wrap:wrap;margin:6px 0;}
+.water-mini-row{display:flex;gap:4px;flex-wrap:wrap;margin:8px 0;}
 .wm{
-  width:21px;height:26px;border-radius:3px 3px 6px 6px;
+  width:23px;height:28px;border-radius:3px 3px 6px 6px;
   border:1.5px solid rgba(255,255,255,0.1);cursor:pointer;overflow:hidden;
   display:flex;flex-direction:column;justify-content:flex-end;
   background:rgba(255,255,255,0.03);position:relative;transition:.2s;
 }
+.wm:hover{transform:translateY(-1px);}
 .wm::before{content:'';position:absolute;top:0;left:0;width:40%;height:100%;background:rgba(255,255,255,0.06);border-radius:2px;}
 .wm.full{border-color:rgba(56,189,248,0.5);box-shadow:0 0 8px rgba(56,189,248,0.2);}
 .wm-fill{width:100%;background:linear-gradient(180deg,#7dd3fc,#0ea5e9);transition:.3s;}
@@ -157,21 +152,22 @@ a{text-decoration:none;color:inherit;}
 }
 .pb-row{height:3px;background:rgba(255,255,255,0.07);border-radius:99px;overflow:hidden;margin-top:6px;}
 .pb-f{height:100%;border-radius:99px;transition:.5s;}
+@keyframes popIn{from{transform:scale(.4);}to{transform:scale(1);}}
 
 /* ══════════════════════════════════
    MAIN AREA
 ══════════════════════════════════ */
 .main-area{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden;}
 .top-bar{
-  height:52px;
+  height:60px;
   background:rgba(255,255,255,0.03);
   backdrop-filter:var(--glass-blur);
   border-bottom:1px solid var(--glass-border);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 24px;flex-shrink:0;position:relative;z-index:5;
+  display:flex;align-items:center;gap:22px;
+  padding:0 22px;flex-shrink:0;position:relative;z-index:20;
   box-shadow:0 1px 0 rgba(255,255,255,0.04);
 }
-.tb-left{display:flex;align-items:center;gap:10px;}
+.tb-left{display:flex;align-items:center;gap:10px;flex-shrink:0;}
 .logo-sm{display:flex;align-items:center;gap:7px;}
 .logo-ic{
   width:27px;height:27px;border-radius:8px;
@@ -181,9 +177,9 @@ a{text-decoration:none;color:inherit;}
 }
 .logo-name{font-size:13px;font-weight:800;letter-spacing:.04em;}
 .logo-name em{color:var(--or);font-style:normal;}
-.tb-sep{width:1px;height:18px;background:var(--glass-border);}
-.tb-page-title{font-size:13px;font-weight:600;color:var(--t2);}
-.tb-right{display:flex;align-items:center;gap:6px;}
+.tb-sep{width:1px;height:18px;background:var(--glass-border);flex-shrink:0;}
+.tb-page-title{font-size:13px;font-weight:600;color:var(--t2);flex-shrink:0;}
+.tb-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
 .ibtn{
   width:30px;height:30px;border-radius:8px;
   border:1px solid var(--glass-border);
@@ -194,6 +190,7 @@ a{text-decoration:none;color:inherit;}
   box-shadow:inset 0 1px 0 var(--glass-shine);
 }
 .ibtn:hover{border-color:rgba(255,255,255,0.2);color:var(--t1);background:rgba(255,255,255,0.08);}
+.ibtn:active{transform:scale(.92);}
 .back-btn{
   display:none;align-items:center;gap:6px;font-size:12px;font-weight:500;
   color:var(--t2);padding:5px 12px;border-radius:8px;
@@ -236,6 +233,7 @@ a{text-decoration:none;color:inherit;}
 
 /* ── BUTTONS ── */
 .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 15px;border-radius:9px;font-size:12.5px;font-weight:600;cursor:pointer;border:none;transition:.14s;}
+.btn:active{transform:translateY(1px) scale(.97);}
 .btn-or{
   background:linear-gradient(135deg,var(--orl),var(--or));color:#fff;
   box-shadow:0 4px 16px rgba(139,92,246,0.35),inset 0 1px 0 rgba(255,255,255,0.2);
@@ -260,9 +258,8 @@ a{text-decoration:none;color:inherit;}
 /* ══════════════════════════════════
    DASHBOARD
 ══════════════════════════════════ */
-.page{display:none;}.page.on{display:block;}
-.dash-header{margin-bottom:24px;}
-.dash-greeting{font-size:30px;font-weight:900;letter-spacing:-.03em;margin-bottom:4px;}
+.page{display:none;}.page.on{display:block;animation:pageIn .4s cubic-bezier(.16,1,.3,1);}
+@keyframes pageIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 .dash-date{font-size:13px;color:var(--t2);}
 
 /* XP HERO */
@@ -389,7 +386,7 @@ a{text-decoration:none;color:inherit;}
 }
 .chk.on{background:var(--or);border-color:var(--or);box-shadow:0 2px 10px rgba(139,92,246,0.4);}
 .chk svg{opacity:0;transition:.1s;}
-.chk.on svg{opacity:1;}
+.chk.on svg{opacity:1;animation:popIn .25s cubic-bezier(.34,1.56,.64,1);}
 .ti-txt{font-size:12.5px;font-weight:500;flex:1;cursor:pointer;line-height:1.4;}
 .ti-txt.done{color:var(--t3);text-decoration:line-through;}
 .ti-acts{display:flex;gap:2px;opacity:0;transition:.12s;}
@@ -504,8 +501,13 @@ a{text-decoration:none;color:inherit;}
 /* ══════════════════════════════════
    MODAL
 ══════════════════════════════════ */
-.ov{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(10px);}
-.ov.open{display:flex;}
+.ov{
+  position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;
+  display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px);
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .2s ease,visibility .2s;
+}
+.ov.open{opacity:1;visibility:visible;pointer-events:auto;}
 .modal{
   background:rgba(12,12,12,0.92);
   backdrop-filter:blur(24px) saturate(180%);
@@ -515,7 +517,10 @@ a{text-decoration:none;color:inherit;}
   width:480px;max-width:95vw;max-height:90vh;overflow-y:auto;
   box-shadow:var(--shadow-lg),inset 0 1px 0 var(--glass-shine);
   position:relative;
+  transform:scale(.95) translateY(10px);opacity:0;
+  transition:transform .25s cubic-bezier(.34,1.56,.64,1),opacity .2s;
 }
+.ov.open .modal{transform:scale(1) translateY(0);opacity:1;}
 .modal::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2) 50%,transparent);}
 .mh{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
 .mh h2{font-size:15px;font-weight:700;}
@@ -529,8 +534,13 @@ a{text-decoration:none;color:inherit;}
 /* ══════════════════════════════════
    DRAWER
 ══════════════════════════════════ */
-.dov{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:900;display:none;backdrop-filter:blur(6px);}
-.dov.open{display:block;}
+.dov{
+  position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:900;
+  display:block;backdrop-filter:blur(6px);
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .25s ease,visibility .25s;
+}
+.dov.open{opacity:1;visibility:visible;pointer-events:auto;}
 .drawer{
   position:fixed;top:0;right:-540px;width:520px;height:100vh;
   background:rgba(10,10,10,0.94);
@@ -575,101 +585,82 @@ a{text-decoration:none;color:inherit;}
 
 <div class="app" id="app">
 
-  <!-- ══ LEFT PANEL ══ -->
-  <div class="dash-panel">
-    <div class="dp-cover" id="dp-cover">
-      <img src="https://images.unsplash.com/photo-1511300636408-a63a89df3482?w=520&q=80" id="dp-cover-img" alt="cover">
-      <div class="dp-cover-edit" onclick="openImgM('dp-cover-img','panel-cover')" title="Trocar capa">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+  <!-- ══ TOP NAV (nav + perfil, antiga sidebar) ══ -->
+  <div class="top-bar">
+    <div class="tb-left">
+      <div class="logo-sm">
+        <div class="logo-ic">N</div>
+        <div class="logo-name">NEX<em>US</em></div>
       </div>
+      <div class="tb-sep"></div>
+      <div class="tb-page-title" id="tb-title">Mente do Samuel</div>
     </div>
-    <div class="dp-profile">
-      <div class="dp-avatar">SM</div>
-      <div class="dp-name">Samuel Moraes</div>
-      <div class="dp-lvl" id="dp-lvl">Nível 1 · Iniciante</div>
-      <div class="xp-sm-lbl"><span id="dp-xpc">0 XP</span><span id="dp-xpm">100 XP</span></div>
-      <div class="xp-bar-sm"><div class="xp-bar-sm-f" id="dp-xpf" style="width:0%"></div></div>
-    </div>
-    <div class="dp-nav">
-      <div class="dn-label">Navegação</div>
-      <div class="dn-item" data-p="dashboard" onclick="go('dashboard')">
+
+    <nav class="tb-nav">
+      <button type="button" class="dn-item on" data-p="dashboard" onclick="go('dashboard')">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
-        Home
-      </div>
-      <div class="dn-label">Áreas</div>
-      <div class="dn-item" data-p="trabalho" onclick="go('trabalho')">
+        <span>Home</span>
+      </button>
+      <button type="button" class="dn-item" data-p="trabalho" onclick="go('trabalho')">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
-        Trabalho <span class="dn-badge" id="nb-t">0</span>
-      </div>
-      <div class="dn-item" data-p="financeiro" onclick="go('financeiro')">
+        <span>Trabalho</span><span class="dn-badge" id="nb-t">0</span>
+      </button>
+      <button type="button" class="dn-item" data-p="financeiro" onclick="go('financeiro')">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        Financeiro
-      </div>
-      <div class="dn-item" data-p="rotina" onclick="go('rotina')">
+        <span>Financeiro</span>
+      </button>
+      <button type="button" class="dn-item" data-p="rotina" onclick="go('rotina')">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        Rotina
-      </div>
-      <div class="dn-item" data-p="links" onclick="go('links')">
+        <span>Rotina</span>
+      </button>
+      <button type="button" class="dn-item" data-p="links" onclick="go('links')">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-        Links <span class="dn-badge" id="nb-l">0</span>
-      </div>
-    </div>
-    <div class="dp-daily">
-      <div class="ds-section">
-        <div class="ds-title">Tarefas de hoje</div>
-        <div id="daily-tasks"><div style="font-size:11px;color:var(--t3);padding:4px 0;">Nenhuma tarefa</div></div>
-      </div>
-      <div class="ds-section">
-        <div class="ds-title">💧 Água — <span id="dp-wml">0ml</span> / 3.000ml</div>
-        <div class="water-mini-row" id="water-mini"></div>
-        <div class="pb-row"><div class="pb-f" id="dp-wbar" style="width:0%;background:linear-gradient(90deg,#0ea5e9,#38bdf8)"></div></div>
-      </div>
-      <div class="ds-section">
-        <div class="mand-mini">
-          <div style="font-size:16px;">⚡</div>
-          <div style="flex:1;"><div style="font-size:11px;font-weight:700;">Tarefa diária</div><div style="font-size:10px;color:var(--t3);">Planejar rotina de amanhã</div></div>
-          <div class="chk-mini" id="dp-mand" onclick="togMand()"><svg width="8" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span>Links</span><span class="dn-badge" id="nb-l">0</span>
+      </button>
+    </nav>
+
+    <div class="tb-right">
+      <button class="back-btn" onclick="go('dashboard')">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        Home
+      </button>
+      <div class="tn-profile">
+        <div class="tn-avatar">SM</div>
+        <div class="tn-xpwrap">
+          <div class="tn-lvl" id="dp-lvl">Nível 1 · Iniciante</div>
+          <div class="xp-bar-sm"><div class="xp-bar-sm-f" id="dp-xpf" style="width:0%"></div></div>
+          <div class="xp-sm-lbl"><span id="dp-xpc">0 XP</span><span id="dp-xpm">100 XP</span></div>
         </div>
       </div>
-      <div class="ds-section">
-        <div class="fin-mini">
-          <span style="font-size:11px;color:var(--t2);">💰 Saldo livre</span>
-          <span style="font-size:13px;font-weight:800;color:var(--or);" id="dp-saldo">R$ 0</span>
-        </div>
-      </div>
+      <button class="ibtn" onclick="openM('m-backup')" title="Exportar / Importar dados">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      </button>
     </div>
   </div>
 
   <!-- ══ MAIN AREA ══ -->
   <div class="main-area">
-    <div class="top-bar">
-      <div class="tb-left">
-        <div class="logo-sm">
-          <div class="logo-ic">N</div>
-          <div class="logo-name">NEX<em>US</em></div>
-        </div>
-        <div class="tb-sep"></div>
-        <div class="tb-page-title" id="tb-title">Mente do Samuel</div>
-      </div>
-      <div class="tb-right">
-        <button class="back-btn" onclick="go('dashboard')">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-          Home
-        </button>
-        <button class="ibtn" onclick="openM('m-backup')" title="Exportar / Importar dados">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        </button>
-      </div>
-    </div>
-
     <div class="content-area">
 
       <!-- ══ DASHBOARD ══ -->
       <div class="page on" id="page-dashboard">
-        <div class="dash-header">
-          <div class="dash-greeting" id="dash-greeting">Bom dia, Samuel 👋</div>
-          <div class="dash-date" id="dash-date"></div>
+
+        <!-- CAPA / PERFIL -->
+        <div class="dash-cover" id="dp-cover">
+          <img src="https://images.unsplash.com/photo-1511300636408-a63a89df3482?w=520&q=80" id="dp-cover-img" alt="cover">
+          <div class="dash-cover-info">
+            <div class="dash-avatar-lg">SM</div>
+            <div>
+              <div class="dash-name">Samuel Moraes</div>
+              <div class="dash-greeting-sm" id="dash-greeting">Bom dia, Samuel 👋</div>
+            </div>
+          </div>
+          <div class="dash-cover-edit" onclick="openImgM('dp-cover-img','panel-cover')" title="Trocar capa">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            Trocar capa
+          </div>
         </div>
+        <div class="dash-date" id="dash-date" style="margin:-14px 0 20px;color:var(--t2);font-size:12.5px;"></div>
 
         <!-- XP HERO -->
         <div class="xp-hero" style="margin-bottom:24px;">
@@ -757,6 +748,30 @@ a{text-decoration:none;color:inherit;}
               <div class="banner-emoji">🔗</div>
               <div class="banner-name">LINKS</div>
               <div class="banner-meta" id="bn-meta-links">0 links salvos</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-title" style="margin-top:26px;">Resumo do dia</div>
+        <div class="g3">
+          <div class="card">
+            <div class="ct-row"><span class="ct">📋 Tarefas de hoje</span></div>
+            <div id="daily-tasks"><div style="font-size:11px;color:var(--t3);padding:4px 0;">Nenhuma tarefa</div></div>
+          </div>
+          <div class="card">
+            <div class="ct-row"><span class="ct">💧 Água — <span id="dp-wml">0ml</span> / 3.000ml</span></div>
+            <div class="water-mini-row" id="water-mini"></div>
+            <div class="pb-row"><div class="pb-f" id="dp-wbar" style="width:0%;background:linear-gradient(90deg,#0ea5e9,#38bdf8)"></div></div>
+          </div>
+          <div class="card" style="display:flex;flex-direction:column;gap:10px;justify-content:center;">
+            <div class="mand-mini">
+              <div style="font-size:16px;">⚡</div>
+              <div style="flex:1;"><div style="font-size:11px;font-weight:700;">Tarefa diária</div><div style="font-size:10px;color:var(--t3);">Planejar rotina de amanhã</div></div>
+              <div class="chk-mini" id="dp-mand" onclick="togMand()"><svg width="8" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+            <div class="fin-mini">
+              <span style="font-size:11px;color:var(--t2);">💰 Saldo livre</span>
+              <span style="font-size:13px;font-weight:800;color:var(--or);" id="dp-saldo">R$ 0</span>
             </div>
           </div>
         </div>
