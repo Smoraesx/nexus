@@ -362,22 +362,8 @@ a{text-decoration:none;color:inherit;}
 .topic-banner-edit:hover{color:var(--t1);border-color:rgba(255,255,255,0.3);}
 
 /* ══════════════════════════════════
-   TRABALHO
+   TRABALHO — Ano › Mês › Dia
 ══════════════════════════════════ */
-.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px;}
-.pc{
-  background:var(--glass-bg);backdrop-filter:var(--glass-blur);
-  border:1px solid var(--glass-border);border-radius:14px;overflow:hidden;
-  transition:.18s;position:relative;
-  box-shadow:var(--shadow-sm),inset 0 1px 0 var(--glass-shine);
-}
-.pc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--glass-shine),transparent);}
-.pc:hover{border-color:rgba(255,255,255,0.18);transform:translateY(-2px);box-shadow:var(--shadow-md),inset 0 1px 0 rgba(255,255,255,0.18);}
-.pc-head{padding:14px 16px 10px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;}
-.pc-name{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;}
-.pc-body{padding:10px 16px 14px;}
-.ti{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
-.ti:last-of-type{border-bottom:none;}
 .chk{
   width:16px;height:16px;border:1.5px solid rgba(255,255,255,0.15);
   border-radius:5px;display:grid;place-items:center;
@@ -387,17 +373,57 @@ a{text-decoration:none;color:inherit;}
 .chk.on{background:var(--or);border-color:var(--or);box-shadow:0 2px 10px rgba(139,92,246,0.4);}
 .chk svg{opacity:0;transition:.1s;}
 .chk.on svg{opacity:1;animation:popIn .25s cubic-bezier(.34,1.56,.64,1);}
-.ti-txt{font-size:12.5px;font-weight:500;flex:1;cursor:pointer;line-height:1.4;}
-.ti-txt.done{color:var(--t3);text-decoration:line-through;}
-.ti-acts{display:flex;gap:2px;opacity:0;transition:.12s;}
-.ti:hover .ti-acts{opacity:1;}
 .abn{width:21px;height:21px;border-radius:5px;display:grid;place-items:center;color:var(--t3);transition:.12s;}
 .abn:hover{background:rgba(255,255,255,0.08);color:var(--t2);}
-.pc-foot{padding:8px 16px;border-top:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;}
-.ati-row{display:flex;align-items:center;gap:7px;margin-top:8px;}
-.ati{flex:1;background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,0.08);border-radius:0;padding:4px 2px;font-size:12px;color:var(--t2);}
-.ati:focus{border-bottom-color:var(--or);box-shadow:none;background:transparent;}
-.ati::placeholder{color:var(--t3);}
+
+/* galeria de anos / meses */
+.yr-grid,.mo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px;}
+.yr-card,.mo-card{
+  position:relative;border-radius:14px;overflow:hidden;cursor:pointer;
+  aspect-ratio:4/3;background:#111;border:1px solid var(--glass-border);
+  transition:.2s cubic-bezier(.4,0,.2,1);box-shadow:var(--shadow-sm);
+}
+.yr-card:hover,.mo-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:rgba(255,255,255,.2);}
+.yr-card img,.mo-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.yr-card::after,.mo-card::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.15) 55%,transparent 100%);}
+.yr-card-info,.mo-card-info{position:absolute;bottom:0;left:0;right:0;padding:12px 14px;z-index:2;}
+.yr-card-name{font-size:22px;font-weight:900;letter-spacing:-.01em;text-shadow:0 2px 8px rgba(0,0,0,.5);}
+.mo-card-name{font-size:14.5px;font-weight:800;text-transform:capitalize;text-shadow:0 2px 8px rgba(0,0,0,.5);}
+.yr-card-meta,.mo-card-meta{font-size:10.5px;color:rgba(255,255,255,.6);margin-top:2px;}
+.yr-card-edit,.mo-card-edit,.yr-card-del{
+  position:absolute;top:8px;z-index:3;width:24px;height:24px;border-radius:6px;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(6px);display:grid;place-items:center;
+  color:rgba(255,255,255,.75);opacity:0;transition:.15s;border:1px solid rgba(255,255,255,.1);
+}
+.yr-card-edit,.mo-card-edit{right:8px;}
+.yr-card-del{left:8px;}
+.yr-card:hover .yr-card-edit,.mo-card:hover .mo-card-edit,.yr-card:hover .yr-card-del{opacity:1;}
+.yr-card-edit:hover,.mo-card-edit:hover{color:#fff;background:rgba(0,0,0,.75);}
+.yr-card-del:hover{color:#ef4444;background:rgba(239,68,68,.18);}
+
+/* calendário do mês */
+.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.cal-back{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--t2);cursor:pointer;transition:.12s;}
+.cal-back:hover{color:var(--t1);}
+.cal-title{font-size:20px;font-weight:900;letter-spacing:-.01em;text-transform:capitalize;}
+.cal-dow-row{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:8px;}
+.cal-dow{text-align:center;font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.05em;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;}
+.cal-cell{
+  aspect-ratio:1;border-radius:12px;
+  background:var(--glass-bg);border:1px solid var(--glass-border);
+  display:flex;align-items:center;justify-content:center;position:relative;
+  cursor:pointer;transition:.15s cubic-bezier(.4,0,.2,1);
+  font-size:14px;font-weight:700;color:var(--t2);
+}
+.cal-cell:hover{border-color:rgba(255,255,255,.25);transform:translateY(-2px);background:rgba(255,255,255,0.06);box-shadow:var(--shadow-sm);}
+.cal-cell.blank{visibility:hidden;pointer-events:none;}
+.cal-cell.today{
+  border-color:var(--or);color:var(--or);background:var(--org);
+  box-shadow:0 0 0 2px rgba(139,92,246,.2),0 4px 14px rgba(139,92,246,.25);
+}
+.cal-dot{width:5px;height:5px;border-radius:50%;background:var(--or);position:absolute;bottom:9px;box-shadow:0 0 6px var(--or);}
+.cal-cell.today .cal-dot{background:var(--orl);}
 
 /* ══════════════════════════════════
    FINANCEIRO
@@ -888,14 +914,7 @@ a{text-decoration:none;color:inherit;}
             Trocar capa
           </button>
         </div>
-        <div style="display:flex;justify-content:flex-end;margin-bottom:14px;">
-          <button class="btn btn-or" onclick="openM('m-proj')">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Novo projeto
-          </button>
-        </div>
-        <div class="proj-grid" id="proj-grid"></div>
-        <div id="proj-empty" style="display:none" class="empty"><div class="ei">💼</div><div class="et">Nenhum projeto</div><div class="es">Clique em "Novo projeto" para começar</div></div>
+        <div id="wk-view"></div>
       </div>
 
       <!-- ══ FINANCEIRO ══ -->
@@ -993,11 +1012,10 @@ a{text-decoration:none;color:inherit;}
 </div>
 
 <!-- ══ MODALS ══ -->
-<div class="ov" id="m-proj"><div class="modal">
-  <div class="mh"><h2>Novo projeto</h2><button class="mclose" onclick="closeM('m-proj')">✕</button></div>
-  <div class="fg"><label class="fl">Emoji</label><input type="text" id="p-e" value="📁" maxlength="2" style="width:60px;"></div>
-  <div class="fg"><label class="fl">Nome</label><input type="text" id="p-n" placeholder="Ex: APOSTATUDO" oninput="this.value=this.value.toUpperCase()"></div>
-  <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px;"><button class="btn btn-gh" onclick="closeM('m-proj')">Cancelar</button><button class="btn btn-or" onclick="addProj()">Criar</button></div>
+<div class="ov" id="m-year"><div class="modal" style="width:340px;">
+  <div class="mh"><h2>Novo ano</h2><button class="mclose" onclick="closeM('m-year')">✕</button></div>
+  <div class="fg"><label class="fl">Ano</label><input type="number" id="yr-n" placeholder="Ex: 2027" step="1"></div>
+  <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px;"><button class="btn btn-gh" onclick="closeM('m-year')">Cancelar</button><button class="btn btn-or" onclick="addYear()">Criar</button></div>
 </div></div>
 <div class="ov" id="m-inc"><div class="modal">
   <div class="mh"><h2>Adicionar renda</h2><button class="mclose" onclick="closeM('m-inc')">✕</button></div>
@@ -1030,17 +1048,29 @@ a{text-decoration:none;color:inherit;}
 
 <!-- ══ DRAWERS ══ -->
 <div class="dov" id="d-ov" onclick="closeDrs()"></div>
-<div class="drawer" id="d-task">
+<div class="drawer" id="d-day">
   <div class="dh">
-    <div class="chk" id="d-chk" onclick="togDrTask()"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-    <input type="text" id="d-tn" style="background:transparent;border:none;font-size:15px;font-weight:700;padding:0;border-radius:0;flex:1;" placeholder="Nome da tarefa">
-    <button class="mclose" onclick="closeTDr()">✕</button>
+    <div style="font-size:18px;">📅</div>
+    <div id="d-day-title" style="font-size:15px;font-weight:700;flex:1;">Dia</div>
+    <button class="mclose" onclick="closeDayDrawer()">✕</button>
   </div>
   <div class="db">
-    <div class="fg"><label class="fl">Link relacionado</label><input type="url" id="d-tl" placeholder="https://..."></div>
-    <div class="fg"><label class="fl">Anotações</label><textarea id="d-to" style="min-height:200px;" placeholder="Detalhes, ideias, referências..."></textarea></div>
+    <div class="fg">
+      <label class="fl">Checklist do dia</label>
+      <div id="d-day-list"></div>
+      <div class="qn-add" style="margin-top:10px;">
+        <button type="button" class="qn-plus" onclick="dayAddFromInput()" title="Adicionar">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <input type="text" id="d-day-add-input" placeholder="+ Adicionar item..." maxlength="200" onkeydown="if(event.key==='Enter')dayAddFromInput()">
+      </div>
+    </div>
+    <div class="fg" style="margin-top:14px;">
+      <label class="fl">Anotações livres</label>
+      <textarea id="d-day-notes" style="min-height:220px;" placeholder="Escreva o que quiser sobre esse dia..."></textarea>
+    </div>
   </div>
-  <div class="df"><button class="btn btn-gh btn-sm" onclick="delDrTask()" style="color:var(--err);">🗑 Excluir</button><button class="btn btn-or" onclick="saveTDr()">Salvar</button></div>
+  <div class="df"><span style="font-size:11px;color:var(--t3);display:flex;align-items:center;gap:5px;"><span class="qn-pulse"></span> salvo automaticamente</span></div>
 </div>
 <div class="drawer" id="d-exp">
   <div class="dh">
@@ -1156,8 +1186,8 @@ const MONTHS=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Ago
 const KEY='nexus_v4';
 const DEFAULT_IMGS={'panel-cover':'https://images.unsplash.com/photo-1511300636408-a63a89df3482?w=520&q=80','banner-trabalho':'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80','banner-financeiro':'https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=800&q=80','banner-rotina':'https://images.unsplash.com/photo-1530549387789-4c1017266635?w=800&q=80','banner-links':'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80'};
 
-function def(){return{xp:0,projects:[],income:[],expenses:[],water:{},workouts:{},mandDone:null,links:[],images:{...DEFAULT_IMGS},lastReset:tod()};}
-function gs(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&!s.images)s.images={...DEFAULT_IMGS};return s||def();}catch{return def();}}
+function def(){return{xp:0,income:[],expenses:[],water:{},workouts:{},mandDone:null,links:[],images:{...DEFAULT_IMGS},calendar:{years:{},days:{}},lastReset:tod()};}
+function gs(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&!s.images)s.images={...DEFAULT_IMGS};if(s&&!s.calendar)s.calendar={years:{},days:{}};if(s)delete s.projects;return s||def();}catch{return def();}}
 function ss(s){localStorage.setItem(KEY,JSON.stringify(s));}
 function mut(fn){const s=gs();fn(s);ss(s);render();}
 function uid(){return Math.random().toString(36).slice(2,9)+Date.now().toString(36);}
@@ -1219,13 +1249,12 @@ function go(p){
 function openM(id){document.getElementById(id).classList.add('open');}
 function closeM(id){document.getElementById(id).classList.remove('open');}
 document.querySelectorAll('.ov').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');}));
-function closeDrs(){closeTDr();closeEDr();}
-function closeTDr(){document.getElementById('d-ov').classList.remove('open');document.getElementById('d-task').classList.remove('open');drTId=drPId=null;}
+function closeDrs(){closeDayDrawer();closeEDr();}
 function closeEDr(){document.getElementById('d-ov').classList.remove('open');document.getElementById('d-exp').classList.remove('open');drEId=null;}
 
 /* RENDER */
 function render(){
-  renderXP();renderBadges();renderImages();renderQN();
+  renderXP();renderBadges();renderImages();renderQN();renderDayTasks();
   if(cur==='dashboard')renderDash();
   if(cur==='trabalho')renderWork();
   if(cur==='financeiro')renderFin();
@@ -1252,7 +1281,7 @@ function renderXP(){
 
 function renderBadges(){
   const s=gs();
-  const pend=(s.projects||[]).flatMap(p=>p.tasks||[]).filter(t=>!t.done).length;
+  const pend=((s.calendar.days[tod()]||{}).tasks||[]).filter(t=>!t.done).length;
   const nb=document.getElementById('nb-t');nb.textContent=pend;nb.classList.toggle('show',pend>0);
   const ln=(s.links||[]).length;
   const nl=document.getElementById('nb-l');nl.textContent=ln;nl.classList.toggle('show',ln>0);
@@ -1264,7 +1293,7 @@ function renderDash(){
   const s=gs(),t=tod();
   const h=new Date().getHours();
   document.getElementById('dash-greeting').textContent=h<12?'Bom dia, Samuel 👋':h<18?'Boa tarde, Samuel ☀️':'Boa noite, Samuel 🌙';
-  const allT=(s.projects||[]).flatMap(p=>p.tasks||[]);
+  const allT=(s.calendar.days[t]||{}).tasks||[];
   const pending=allT.filter(t=>!t.done).slice(0,5);
   const dt=document.getElementById('daily-tasks');
   if(!pending.length)dt.innerHTML='<div style="font-size:11px;color:var(--t3);padding:4px 0;">✅ Nenhuma pendente</div>';
@@ -1281,7 +1310,8 @@ function renderDash(){
   const totP=(s.expenses||[]).filter(e=>e.s==='paga').reduce((a,e)=>a+Number(e.v||0),0);
   const totO=(s.expenses||[]).filter(e=>e.s==='aberta').reduce((a,e)=>a+Number(e.v||0),0);
   document.getElementById('dp-saldo').textContent=fmtS(totI-totP-totO);
-  document.getElementById('bn-meta-trabalho').textContent=`${s.projects.length} projetos · ${allT.filter(t=>!t.done).length} pendentes`;
+  const yrCount=Object.keys(s.calendar.years).length;
+  document.getElementById('bn-meta-trabalho').textContent=`${yrCount} ano${yrCount===1?'':'s'} · ${allT.filter(t=>!t.done).length} pendentes hoje`;
   document.getElementById('bn-meta-financeiro').textContent=`Saldo: ${fmtS(totI-totP-totO)}`;
   document.getElementById('bn-meta-rotina').textContent=`💧 ${todW*500}ml · 🏊 ${getWkDone(s)}/3`;
   document.getElementById('bn-meta-links').textContent=`${(s.links||[]).length} links salvos`;
@@ -1293,33 +1323,188 @@ function getWkDone(s){
 }
 function togWaterMini(idx){const s=gs(),t=tod();if(!s.water)s.water={};const cur=s.water[t]||0;if(idx===cur){s.water[t]=cur+1;ss(s);render();addXP(XPV.water);}else if(idx<cur){s.water[t]=idx;ss(s);render();}}
 
-/* TRABALHO */
+/* TRABALHO — Ano › Mês › Dia */
+function pad2(n){return String(n).padStart(2,'0');}
+function ymdKey(y,m,d){return `${y}-${pad2(m)}-${pad2(d)}`;}
+function ensureYear(s,y){if(!s.calendar.years[y])s.calendar.years[y]={};return s.calendar.years[y];}
+function ensureDay(s,key){if(!s.calendar.days[key])s.calendar.days[key]={tasks:[],notes:''};return s.calendar.days[key];}
+function fmtFullDate(y,m,d){return `${DNAMES[new Date(y,m-1,d).getDay()]}, ${d} de ${MONTHS[m-1]} de ${y}`;}
+function countDaysWithData(s,prefix){return Object.keys(s.calendar.days).filter(k=>k.startsWith(prefix)&&((s.calendar.days[k].tasks||[]).length||(s.calendar.days[k].notes||'').trim())).length;}
+
+let wkYear=null,wkMonth=null;
+function wkGoYears(){wkYear=null;wkMonth=null;render();}
+function wkGoYear(y){wkYear=y;wkMonth=null;render();}
+function wkGoMonth(y,m){wkYear=y;wkMonth=m;render();}
+
 function renderWork(){
   const s=gs();
-  const g=document.getElementById('proj-grid'),em=document.getElementById('proj-empty');
-  if(!s.projects.length){g.innerHTML='';em.style.display='block';return;}
-  em.style.display='none';
-  g.innerHTML=s.projects.map(p=>{
-    const done=(p.tasks||[]).filter(t=>t.done).length,tot=(p.tasks||[]).length;
-    const pct=tot?Math.round(done/tot*100):0;
-    return`<div class="pc"><div class="pc-head"><div class="pc-name"><span style="font-size:18px;">${p.emoji}</span>${p.name}</div><button class="abn" onclick="delProj('${p.id}')"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg></button></div>
-    <div class="pc-body">${(p.tasks||[]).map(t=>`<div class="ti"><div class="chk ${t.done?'on':''}" onclick="togTask('${t.id}','${p.id}')"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="ti-txt ${t.done?'done':''}" onclick="openTDr('${t.id}','${p.id}')">${t.text}</span><div class="ti-acts">${t.link?`<a href="${t.link}" target="_blank" class="abn"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>`:''}<button class="abn" onclick="openTDr('${t.id}','${p.id}')"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button></div></div>`).join('')}
-      <div class="ati-row"><input class="ati" id="at-${p.id}" placeholder="+ Adicionar tarefa..." onkeydown="if(event.key==='Enter')addTask('${p.id}')"><button class="abn" onclick="addTask('${p.id}')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div>
-    </div>
-    <div class="pc-foot"><span style="font-size:10.5px;color:var(--t3);">${done}/${tot} concluídas</span><div style="width:70px;height:3px;background:rgba(255,255,255,0.07);border-radius:99px;overflow:hidden;"><div style="height:100%;width:${pct}%;background:var(--or);border-radius:99px;box-shadow:0 0 6px rgba(139,92,246,0.4);"></div></div></div></div>`;
-  }).join('');
+  const v=document.getElementById('wk-view');
+  if(!v)return;
+  if(wkYear&&wkMonth)renderWorkDays(s,v,wkYear,wkMonth);
+  else if(wkYear)renderWorkMonths(s,v,wkYear);
+  else renderWorkYears(s,v);
 }
-function addProj(){const n=document.getElementById('p-n').value.trim(),e=document.getElementById('p-e').value.trim()||'📁';if(!n)return;mut(s=>{s.projects.push({id:uid(),name:n,emoji:e,tasks:[]});});document.getElementById('p-n').value='';document.getElementById('p-e').value='📁';closeM('m-proj');go('trabalho');}
-function delProj(id){if(!confirm('Excluir projeto?'))return;mut(s=>{s.projects=s.projects.filter(p=>p.id!==id);});}
-function addTask(pId){const inp=document.getElementById(`at-${pId}`),text=inp.value.trim();if(!text)return;mut(s=>{const p=s.projects.find(p=>p.id===pId);if(p){if(!p.tasks)p.tasks=[];p.tasks.push({id:uid(),text,done:false,link:'',notes:''});}});inp.value='';}
-function togTask(tId,pId){const s=gs(),p=s.projects.find(p=>p.id===pId);if(!p)return;const t=(p.tasks||[]).find(t=>t.id===tId);if(!t)return;const was=t.done;t.done=!t.done;ss(s);render();if(!was)addXP(XPV.task);}
-function togTaskById(tId){const s=gs();for(const p of s.projects){const t=(p.tasks||[]).find(t=>t.id===tId);if(t){const was=t.done;t.done=!t.done;ss(s);render();if(!was)addXP(XPV.task);return;}}}
 
-let drTId=null,drPId=null;
-function openTDr(tId,pId){const s=gs(),p=s.projects.find(p=>p.id===pId);if(!p)return;const t=(p.tasks||[]).find(t=>t.id===tId);if(!t)return;drTId=tId;drPId=pId;document.getElementById('d-tn').value=t.text;document.getElementById('d-tl').value=t.link||'';document.getElementById('d-to').value=t.notes||'';document.getElementById('d-chk').classList.toggle('on',t.done);document.getElementById('d-ov').classList.add('open');document.getElementById('d-task').classList.add('open');}
-function togDrTask(){if(!drTId||!drPId)return;togTask(drTId,drPId);const s=gs(),p=s.projects.find(p=>p.id===drPId);if(!p)return;const t=(p.tasks||[]).find(t=>t.id===drTId);if(t)document.getElementById('d-chk').classList.toggle('on',t.done);}
-function saveTDr(){if(!drTId||!drPId)return;const n=document.getElementById('d-tn').value.trim(),l=document.getElementById('d-tl').value.trim(),o=document.getElementById('d-to').value;mut(s=>{const p=s.projects.find(p=>p.id===drPId);if(!p)return;const t=(p.tasks||[]).find(t=>t.id===drTId);if(t){t.text=n||t.text;t.link=l;t.notes=o;}});closeTDr();}
-function delDrTask(){if(!drTId||!drPId||!confirm('Excluir?'))return;mut(s=>{const p=s.projects.find(p=>p.id===drPId);if(p)p.tasks=(p.tasks||[]).filter(t=>t.id!==drTId);});closeTDr();}
+function renderWorkYears(s,v){
+  const years=Object.keys(s.calendar.years).map(Number).sort((a,b)=>b-a);
+  let html=`<div style="display:flex;justify-content:flex-end;margin-bottom:14px;"><button class="btn btn-or" onclick="openM('m-year')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Novo ano</button></div>`;
+  if(!years.length){
+    html+=`<div class="empty"><div class="ei">🗓️</div><div class="et">Nenhum ano criado</div><div class="es">Clique em "Novo ano" para começar a organizar por data</div></div>`;
+  }else{
+    html+=`<div class="yr-grid">${years.map(y=>{
+      const img=(s.images||{})[`year-${y}`]||'';
+      const n=countDaysWithData(s,`${y}-`);
+      return `<div class="yr-card" onclick="wkGoYear(${y})">
+        ${img?`<img src="${img}" alt="">`:''}
+        <button class="yr-card-del" onclick="event.stopPropagation();delYear(${y})" title="Excluir ano"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg></button>
+        <button class="yr-card-edit" onclick="event.stopPropagation();openImgM('unused','year-${y}')" title="Trocar capa"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+        <div class="yr-card-info"><div class="yr-card-name">${y}</div><div class="yr-card-meta">${n} dia${n===1?'':'s'} com anotação</div></div>
+      </div>`;
+    }).join('')}</div>`;
+  }
+  v.innerHTML=html;
+}
+
+function renderWorkMonths(s,v,y){
+  ensureYear(s,y);
+  let html=`<div class="cal-head"><div class="cal-back" onclick="wkGoYears()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg> Anos</div><div class="cal-title">${y}</div><div style="width:60px;"></div></div>
+  <div class="mo-grid">${MONTHS.map((mn,i)=>{
+    const m=i+1;
+    const img=(s.images||{})[`month-${y}-${pad2(m)}`]||'';
+    const n=countDaysWithData(s,`${y}-${pad2(m)}-`);
+    return `<div class="mo-card" onclick="wkGoMonth(${y},${m})">
+      ${img?`<img src="${img}" alt="">`:''}
+      <button class="mo-card-edit" onclick="event.stopPropagation();openImgM('unused','month-${y}-${pad2(m)}')" title="Trocar capa"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+      <div class="mo-card-info"><div class="mo-card-name">${mn}</div><div class="mo-card-meta">${n} dia${n===1?'':'s'} com anotação</div></div>
+    </div>`;
+  }).join('')}</div>`;
+  v.innerHTML=html;
+}
+
+function renderWorkDays(s,v,y,m){
+  const first=new Date(y,m-1,1);
+  const startDow=first.getDay();
+  const daysInMonth=new Date(y,m,0).getDate();
+  const tKey=tod();
+  let cells='';
+  for(let i=0;i<startDow;i++)cells+=`<div class="cal-cell blank"></div>`;
+  for(let d=1;d<=daysInMonth;d++){
+    const key=ymdKey(y,m,d);
+    const isToday=key===tKey;
+    const has=s.calendar.days[key]&&((s.calendar.days[key].tasks||[]).length||(s.calendar.days[key].notes||'').trim());
+    cells+=`<div class="cal-cell${isToday?' today':''}" onclick="openDayDrawer(${y},${m},${d})">${d}${has?'<span class="cal-dot"></span>':''}</div>`;
+  }
+  const html=`<div class="cal-head"><div class="cal-back" onclick="wkGoYear(${y})"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg> ${y}</div><div class="cal-title">${MONTHS[m-1]} de ${y}</div><div style="width:60px;"></div></div>
+  <div class="cal-dow-row">${DNAMES.map(dn=>`<div class="cal-dow">${dn}</div>`).join('')}</div>
+  <div class="cal-grid">${cells}</div>`;
+  v.innerHTML=html;
+}
+
+function addYear(){
+  const y=parseInt(document.getElementById('yr-n').value,10);
+  if(!y||y<1900||y>3000)return;
+  mut(s=>{ensureYear(s,y);});
+  document.getElementById('yr-n').value='';
+  closeM('m-year');
+  wkGoYear(y);
+}
+function delYear(y){
+  if(!confirm(`Excluir o ano ${y} e todas as anotações dele? Essa ação não pode ser desfeita.`))return;
+  mut(s=>{
+    delete s.calendar.years[y];
+    Object.keys(s.calendar.days).forEach(k=>{if(k.startsWith(`${y}-`))delete s.calendar.days[k];});
+    if(s.images)delete s.images[`year-${y}`];
+    for(let m=1;m<=12;m++)if(s.images)delete s.images[`month-${y}-${pad2(m)}`];
+  });
+  wkGoYears();
+}
+
+/* checklist genérico: usado tanto pelo popup flutuante (dia de hoje)
+   quanto pelo drawer de qualquer dia do calendário */
+function togTaskById(tId){
+  const s=gs();
+  for(const key in s.calendar.days){
+    const day=s.calendar.days[key];
+    const t=(day.tasks||[]).find(t=>t.id===tId);
+    if(t){const was=t.done;t.done=!t.done;ss(s);render();if(!was)addXP(XPV.task);return;}
+  }
+}
+
+/* ── drawer do dia ── */
+let curDayKey=null,dayEditingId=null;
+function openDayDrawer(y,m,d){
+  curDayKey=ymdKey(y,m,d);
+  const s=gs();
+  ensureDay(s,curDayKey);ss(s);
+  document.getElementById('d-day-title').textContent=fmtFullDate(y,m,d);
+  document.getElementById('d-day-notes').value=s.calendar.days[curDayKey].notes||'';
+  renderDayTasks();
+  document.getElementById('d-ov').classList.add('open');
+  document.getElementById('d-day').classList.add('open');
+}
+function closeDayDrawer(){
+  document.getElementById('d-ov').classList.remove('open');
+  document.getElementById('d-day').classList.remove('open');
+  curDayKey=null;dayEditingId=null;
+}
+function renderDayTasks(){
+  if(!curDayKey)return;
+  const list=document.getElementById('d-day-list');
+  if(!list)return;
+  const s=gs();
+  const day=s.calendar.days[curDayKey]||{tasks:[]};
+  const tasks=day.tasks||[];
+  list.innerHTML=tasks.length?tasks.map(t=>`<div class="qn-item">
+    <button type="button" class="chk-mini${t.done?' on':''}" onclick="togTaskById('${t.id}')" title="Marcar/desmarcar">
+      <svg width="8" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="qn-itxt${t.done?' done':''}" onclick="dayStartEdit(this)" data-id="${t.id}" title="Clique para editar">${qnEsc(t.text)}</div>
+    <button type="button" class="qn-icobtn qn-del" onclick="dayDeleteTask('${t.id}')" title="Excluir">
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>
+    </button>
+  </div>`).join(''):'<div class="qn-empty">Nenhuma tarefa neste dia ainda</div>';
+}
+function dayAddFromInput(){
+  if(!curDayKey)return;
+  const input=document.getElementById('d-day-add-input');
+  const v=input.value.trim();
+  if(!v)return;
+  mut(s=>{ensureDay(s,curDayKey).tasks.push({id:uid(),text:v,done:false});});
+  input.value='';input.focus();
+}
+function dayStartEdit(el){
+  if(dayEditingId){const active=document.querySelector('#d-day-list .qn-edit-input');if(active)active.blur();return;}
+  const id=el.getAttribute('data-id');
+  dayEditingId=id;
+  const input=document.createElement('input');
+  input.type='text';input.value=el.textContent;input.className='qn-edit-input';input.maxLength=200;
+  el.replaceWith(input);
+  input.focus();input.select();
+  let done=false;
+  function finish(commit){
+    if(done)return;done=true;dayEditingId=null;
+    if(commit)dayEditTask(id,input.value);
+    else renderDayTasks();
+  }
+  input.addEventListener('keydown',function(e){
+    if(e.key==='Enter'){e.preventDefault();finish(true);}
+    else if(e.key==='Escape'){e.preventDefault();finish(false);}
+  });
+  input.addEventListener('blur',function(){finish(true);});
+}
+function dayEditTask(tId,newText){
+  const v=newText.trim();
+  if(!v){dayDeleteTask(tId);return;}
+  mut(s=>{const day=s.calendar.days[curDayKey];if(day){const t=(day.tasks||[]).find(t=>t.id===tId);if(t)t.text=v;}});
+}
+function dayDeleteTask(tId){
+  mut(s=>{const day=s.calendar.days[curDayKey];if(day)day.tasks=(day.tasks||[]).filter(t=>t.id!==tId);});
+}
+document.getElementById('d-day-notes').addEventListener('blur',function(){
+  if(!curDayKey)return;
+  const v=this.value;
+  mut(s=>{ensureDay(s,curDayKey).notes=v;});
+});
 
 /* FINANCEIRO */
 function renderFin(){
@@ -1437,24 +1622,17 @@ function importData(){
 /* ══════════════════════════════════
    ANOTAÇÃO FLUTUANTE (Picture-in-Picture)
 ══════════════════════════════════ */
-const QN_PROJECT_ID='quick-notes';
-function ensureQuickProject(s){
-  if(!s.projects)s.projects=[];
-  let p=s.projects.find(pr=>pr.id===QN_PROJECT_ID);
-  if(!p){p={id:QN_PROJECT_ID,name:'Anotações Rápidas',emoji:'⚡',tasks:[]};s.projects.unshift(p);}
-  return p;
-}
-/* a anotação flutuante é seu próprio espaço — só mostra/edita os itens
-   do projeto "Anotações Rápidas", nunca tarefas de outros projetos do Trabalho */
+/* a anotação flutuante escreve direto no dia de hoje da agenda
+   (Trabalho › Ano › Mês › Dia) — é a mesma lista que aparece se você
+   abrir o dia de hoje no calendário */
 function qnTasks(s){
-  const p=(s.projects||[]).find(pr=>pr.id===QN_PROJECT_ID);
-  return p?(p.tasks||[]):[];
+  return (s.calendar.days[tod()]||{}).tasks||[];
 }
 function qnFindTask(s,tId){
-  const p=(s.projects||[]).find(pr=>pr.id===QN_PROJECT_ID);
-  if(!p)return null;
-  const t=(p.tasks||[]).find(t=>t.id===tId);
-  return t?{project:p,task:t}:null;
+  const day=s.calendar.days[tod()];
+  if(!day)return null;
+  const t=(day.tasks||[]).find(t=>t.id===tId);
+  return t?{day,task:t}:null;
 }
 function qnEsc(str){const d=document.createElement('div');d.textContent=str;return d.innerHTML;}
 
@@ -1542,7 +1720,7 @@ function qnEditTask(tId,newText){
 }
 
 function qnDeleteTask(tId){
-  mut(function(s){const f=qnFindTask(s,tId);if(f)f.project.tasks=f.project.tasks.filter(t=>t.id!==tId);});
+  mut(function(s){const day=s.calendar.days[tod()];if(day)day.tasks=(day.tasks||[]).filter(t=>t.id!==tId);});
 }
 
 function qnAddFromInput(){
@@ -1550,7 +1728,7 @@ function qnAddFromInput(){
   const input=qnWidgetEl.querySelector('#qn-input');
   const v=input.value.trim();
   if(!v)return;
-  mut(function(s){const p=ensureQuickProject(s);p.tasks.push({id:uid(),text:v,done:false,link:'',notes:''});});
+  mut(function(s){ensureDay(s,tod()).tasks.push({id:uid(),text:v,done:false});});
   input.value='';
   input.focus();
 }
