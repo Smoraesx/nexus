@@ -610,23 +610,52 @@ a{text-decoration:none;color:inherit;}
 }
 @keyframes qnIn{from{opacity:0;transform:translateY(14px) scale(.96);}to{opacity:1;transform:translateY(0) scale(1);}
 }
-.qn-pip .qn-head{display:flex;align-items:center;justify-content:space-between;padding:13px 14px 10px;border-bottom:1px solid rgba(255,255,255,0.07);}
+/* quando a própria janela flutuante (Picture-in-Picture) é o container,
+   o card deixa de ter tamanho fixo e passa a ocupar 100% dela,
+   acompanhando o redimensionamento manual da janela */
+.qn-pip.qn-in-pip{
+  position:static;width:100%;height:100%;
+  border-radius:0;border:none;box-shadow:none;
+  display:flex;flex-direction:column;
+  animation:none;
+}
+.qn-pip.qn-in-pip .qn-full{flex:1;display:flex;flex-direction:column;min-height:0;min-width:0;}
+.qn-pip.qn-in-pip .qn-body{flex:1;max-height:none;min-height:0;}
+.qn-pip.qn-in-pip.mode-mini{width:100%;height:100%;padding:0 12px;}
+
+.qn-pip .qn-head{display:flex;align-items:center;justify-content:space-between;padding:13px 14px 10px;border-bottom:1px solid rgba(255,255,255,0.07);flex-shrink:0;}
 .qn-crumb{font-size:10.5px;font-weight:700;color:var(--t3);letter-spacing:.02em;}
 .qn-crumb b{color:var(--orl);font-weight:800;}
-.qn-headbtns{display:flex;gap:5px;}
-.qn-icobtn{width:22px;height:22px;border-radius:6px;display:grid;place-items:center;color:var(--t3);background:rgba(255,255,255,0.05);border:1px solid var(--glass-border);cursor:pointer;transition:.14s;}
+.qn-headbtns{display:flex;gap:5px;flex-shrink:0;}
+.qn-icobtn{width:22px;height:22px;border-radius:6px;display:grid;place-items:center;color:var(--t3);background:rgba(255,255,255,0.05);border:1px solid var(--glass-border);cursor:pointer;transition:.14s;flex-shrink:0;}
 .qn-icobtn:hover{color:var(--t1);background:rgba(255,255,255,0.09);}
-.qn-body{padding:12px 14px 6px;max-height:260px;overflow-y:auto;}
-.qn-title{font-size:14px;font-weight:800;margin-bottom:10px;letter-spacing:-.01em;}
-.qn-empty{font-size:11.5px;color:var(--t3);padding:6px 0;}
-.qn-item{display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.qn-icobtn:active{transform:scale(.9);}
+.qn-body{padding:10px 14px 6px;max-height:260px;overflow-y:auto;}
+.qn-title{font-size:14px;font-weight:800;margin-bottom:8px;letter-spacing:-.01em;flex-shrink:0;}
+.qn-empty{font-size:11.5px;color:var(--t3);padding:8px 2px;line-height:1.5;}
+.qn-item{display:flex;align-items:flex-start;gap:8px;padding:6px 2px;border-radius:7px;border-bottom:1px solid rgba(255,255,255,0.05);transition:.12s;}
 .qn-item:last-of-type{border-bottom:none;}
-.qn-add{display:flex;align-items:center;gap:8px;margin:8px 0 12px;border-top:1px dashed rgba(255,255,255,0.08);padding-top:10px;}
+.qn-item:hover{background:rgba(255,255,255,0.035);}
+.qn-itxt{font-size:12.5px;font-weight:500;line-height:1.4;color:var(--t1);flex:1;cursor:text;border-radius:4px;padding:1px 3px;margin:-1px -3px;transition:.12s;word-break:break-word;}
+.qn-item:hover .qn-itxt{background:rgba(255,255,255,0.04);}
+.qn-itxt.done{color:var(--t3);text-decoration:line-through;}
+.qn-edit-input{
+  flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(139,92,246,0.4);
+  border-radius:4px;padding:1px 4px;margin:-1px -4px;font-size:12.5px;font-family:inherit;
+  color:var(--t1);outline:none;
+}
+.qn-del{opacity:0;transition:.12s;flex-shrink:0;color:var(--t3);}
+.qn-item:hover .qn-del{opacity:1;}
+.qn-del:hover{color:#ef4444;background:rgba(239,68,68,0.12);}
+.qn-add{display:flex;align-items:center;gap:8px;margin:8px 0 12px;border-top:1px dashed rgba(255,255,255,0.08);padding-top:10px;flex-shrink:0;}
 .qn-add input{flex:1;background:transparent;border:none;font-size:12.5px;color:var(--t1);}
 .qn-add input::placeholder{color:var(--t3);}
-.qn-add .qn-plus{width:20px;height:20px;border-radius:6px;background:var(--org);color:var(--orl);display:grid;place-items:center;flex-shrink:0;cursor:pointer;}
-.qn-foot{padding:8px 14px;border-top:1px solid rgba(255,255,255,0.06);font-size:10px;color:var(--t3);display:flex;align-items:center;gap:5px;}
-.qn-foot .qn-pulse{width:5px;height:5px;border-radius:50%;background:#22c55e;box-shadow:0 0 5px #22c55e;}
+.qn-add .qn-plus{width:20px;height:20px;border-radius:6px;background:var(--org);color:var(--orl);display:grid;place-items:center;flex-shrink:0;cursor:pointer;transition:.12s;}
+.qn-add .qn-plus:hover{background:rgba(139,92,246,0.28);}
+.qn-add .qn-plus:active{transform:scale(.88);}
+.qn-foot{padding:8px 14px;border-top:1px solid rgba(255,255,255,0.06);font-size:10px;color:var(--t3);display:flex;align-items:center;justify-content:space-between;gap:5px;flex-shrink:0;}
+.qn-foot-l{display:flex;align-items:center;gap:5px;}
+.qn-foot .qn-pulse{width:5px;height:5px;border-radius:50%;background:#22c55e;box-shadow:0 0 5px #22c55e;flex-shrink:0;}
 
 .qn-full{display:block;}
 .qn-compact{display:none;}
@@ -1078,37 +1107,40 @@ a{text-decoration:none;color:inherit;}
     <div class="qn-head">
       <div class="qn-crumb" id="qn-crumb">2026 › Agosto › <b>Qui, 21</b></div>
       <div class="qn-headbtns">
-        <button class="qn-icobtn" id="qn-btn-minimize" title="Minimizar">
+        <button type="button" class="qn-icobtn" id="qn-btn-minimize" title="Minimizar">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
-        <button class="qn-icobtn" id="qn-btn-close-full" title="Fechar">
+        <button type="button" class="qn-icobtn" id="qn-btn-close-full" title="Fechar">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
       </div>
     </div>
     <div class="qn-body">
-      <div class="qn-title">Anotações de hoje</div>
+      <div class="qn-title">Anotações rápidas</div>
       <div id="qn-list"></div>
       <div class="qn-add">
-        <div class="qn-plus" id="qn-btn-add">
+        <button type="button" class="qn-plus" id="qn-btn-add" title="Adicionar">
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        </div>
-        <input type="text" id="qn-input" placeholder="+ Adicionar item...">
+        </button>
+        <input type="text" id="qn-input" placeholder="+ Adicionar item..." maxlength="200">
       </div>
     </div>
-    <div class="qn-foot"><span class="qn-pulse"></span> salvo automaticamente</div>
+    <div class="qn-foot">
+      <span class="qn-foot-l"><span class="qn-pulse"></span> salvo automaticamente</span>
+      <span id="qn-done-count"></span>
+    </div>
   </div>
   <div class="qn-compact">
     <div class="qn-datebadge"><span class="d" id="qn-mini-d">21</span><span class="m" id="qn-mini-m">Ago</span></div>
     <div class="qn-mid">
-      <div class="qn-mtitle">Anotação de hoje</div>
+      <div class="qn-mtitle">Anotações rápidas</div>
       <div class="qn-mmeta"><b id="qn-mini-count">0</b> pendentes</div>
     </div>
     <div class="qn-mbtns">
-      <button class="qn-icobtn" id="qn-btn-expand" title="Expandir">
+      <button type="button" class="qn-icobtn" id="qn-btn-expand" title="Expandir">
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
       </button>
-      <button class="qn-icobtn" id="qn-btn-close-mini" title="Fechar">
+      <button type="button" class="qn-icobtn" id="qn-btn-close-mini" title="Fechar">
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
@@ -1412,25 +1444,58 @@ function ensureQuickProject(s){
   if(!p){p={id:QN_PROJECT_ID,name:'Anotações Rápidas',emoji:'⚡',tasks:[]};s.projects.unshift(p);}
   return p;
 }
-function qnPending(s){return (s.projects||[]).flatMap(p=>p.tasks||[]).filter(t=>!t.done);}
+/* a anotação flutuante é seu próprio espaço — só mostra/edita os itens
+   do projeto "Anotações Rápidas", nunca tarefas de outros projetos do Trabalho */
+function qnTasks(s){
+  const p=(s.projects||[]).find(pr=>pr.id===QN_PROJECT_ID);
+  return p?(p.tasks||[]):[];
+}
+function qnFindTask(s,tId){
+  const p=(s.projects||[]).find(pr=>pr.id===QN_PROJECT_ID);
+  if(!p)return null;
+  const t=(p.tasks||[]).find(t=>t.id===tId);
+  return t?{project:p,task:t}:null;
+}
+function qnEsc(str){const d=document.createElement('div');d.textContent=str;return d.innerHTML;}
 
 const qnWidgetEl=document.getElementById('qn-widget');
 const qnFabEl=document.getElementById('qn-fab');
-let qnIsOpen=false,qnPipWin=null,qnMode='lg',qnWired=false;
+let qnIsOpen=false,qnPipWin=null,qnMode='lg',qnWired=false,qnEditingId=null;
 
 function renderQN(){
   if(!qnWidgetEl)return;
   const s=gs();
-  const pending=qnPending(s).slice(0,8);
+  const tasks=qnTasks(s);
   const list=qnWidgetEl.querySelector('#qn-list');
   if(list){
-    list.innerHTML=pending.length?pending.map(t=>`<div class="qn-item"><div class="chk-mini${t.done?' on':''}" data-qn-id="${t.id}"><svg width="8" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="task-mini-txt${t.done?' done':''}">${t.text}</div></div>`).join(''):'<div class="qn-empty">Nenhuma pendência hoje ✅</div>';
-    list.querySelectorAll('[data-qn-id]').forEach(function(el){
-      el.addEventListener('click',function(){togTaskById(el.getAttribute('data-qn-id'));});
-    });
+    if(!tasks.length){
+      list.innerHTML='<div class="qn-empty">Nada por aqui ainda — escreva algo abaixo ✍️</div>';
+    }else{
+      list.innerHTML=tasks.map(t=>`<div class="qn-item">
+        <button type="button" class="chk-mini${t.done?' on':''}" data-qn-chk="${t.id}" title="Marcar/desmarcar">
+          <svg width="8" height="7" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="qn-itxt${t.done?' done':''}" data-qn-txt="${t.id}" title="Clique para editar">${qnEsc(t.text)}</div>
+        <button type="button" class="qn-icobtn qn-del" data-qn-del="${t.id}" title="Excluir">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>
+        </button>
+      </div>`).join('');
+      list.querySelectorAll('[data-qn-chk]').forEach(function(el){
+        el.addEventListener('click',function(){togTaskById(el.getAttribute('data-qn-chk'));});
+      });
+      list.querySelectorAll('[data-qn-del]').forEach(function(el){
+        el.addEventListener('click',function(e){e.stopPropagation();qnDeleteTask(el.getAttribute('data-qn-del'));});
+      });
+      list.querySelectorAll('[data-qn-txt]').forEach(function(el){
+        el.addEventListener('click',function(){qnStartEdit(el);});
+      });
+    }
   }
-  const pend=pending.length;
+  const pend=tasks.filter(t=>!t.done).length;
+  const done=tasks.length-pend;
   const cEl=qnWidgetEl.querySelector('#qn-mini-count');if(cEl)cEl.textContent=pend;
+  const doneEl=qnWidgetEl.querySelector('#qn-done-count');
+  if(doneEl)doneEl.textContent=tasks.length?`${done}/${tasks.length} concluídas`:'';
   if(qnFabEl){
     const badge=qnFabEl.querySelector('#qn-fab-badge');
     if(badge){badge.textContent=pend;badge.classList.toggle('show',pend>0);}
@@ -1442,6 +1507,44 @@ function renderQN(){
   const miniM=qnWidgetEl.querySelector('#qn-mini-m');if(miniM)miniM.textContent=MONTHS[now.getMonth()].slice(0,3);
 }
 
+function qnStartEdit(el){
+  if(qnEditingId){
+    // já tem outra edição em andamento: confirma ela primeiro (não perde o que foi digitado)
+    const active=qnWidgetEl.querySelector('.qn-edit-input');
+    if(active)active.blur();
+    return;
+  }
+  const id=el.getAttribute('data-qn-txt');
+  qnEditingId=id;
+  const current=el.textContent;
+  const input=document.createElement('input');
+  input.type='text';input.value=current;input.className='qn-edit-input';input.maxLength=200;
+  el.replaceWith(input);
+  input.focus();input.select();
+  let done=false;
+  function finish(commit){
+    if(done)return;done=true;
+    qnEditingId=null;
+    if(commit)qnEditTask(id,input.value);
+    else renderQN(); // Esc: descarta e volta ao texto original
+  }
+  input.addEventListener('keydown',function(e){
+    if(e.key==='Enter'){e.preventDefault();finish(true);}
+    else if(e.key==='Escape'){e.preventDefault();finish(false);}
+  });
+  input.addEventListener('blur',function(){finish(true);});
+}
+
+function qnEditTask(tId,newText){
+  const v=newText.trim();
+  if(!v){qnDeleteTask(tId);return;}
+  mut(function(s){const f=qnFindTask(s,tId);if(f)f.task.text=v;});
+}
+
+function qnDeleteTask(tId){
+  mut(function(s){const f=qnFindTask(s,tId);if(f)f.project.tasks=f.project.tasks.filter(t=>t.id!==tId);});
+}
+
 function qnAddFromInput(){
   if(!qnWidgetEl)return;
   const input=qnWidgetEl.querySelector('#qn-input');
@@ -1449,13 +1552,14 @@ function qnAddFromInput(){
   if(!v)return;
   mut(function(s){const p=ensureQuickProject(s);p.tasks.push({id:uid(),text:v,done:false,link:'',notes:''});});
   input.value='';
+  input.focus();
 }
 
 function qnSetMode(mode){
   qnMode=mode;
   qnWidgetEl.classList.toggle('mode-mini',mode==='mini');
   if(qnPipWin&&!qnPipWin.closed){
-    try{qnPipWin.resizeTo(mode==='mini'?266:320,mode==='mini'?90:400);}catch(e){}
+    try{qnPipWin.resizeTo(mode==='mini'?266:320,mode==='mini'?90:420);}catch(e){}
   }
 }
 
@@ -1497,15 +1601,21 @@ async function openQN(){
     try{
       qnPipWin=await documentPictureInPicture.requestWindow({
         width: qnMode==='mini'?266:320,
-        height: qnMode==='mini'?90:400
+        height: qnMode==='mini'?90:420
       });
       qnCopyStyles(qnPipWin.document);
+      qnPipWin.document.documentElement.style.height='100%';
+      qnPipWin.document.body.style.height='100%';
       qnPipWin.document.body.style.margin='0';
       qnPipWin.document.body.style.background='#080808';
       qnPipWin.document.body.style.padding='0';
+      qnPipWin.document.body.style.overflow='hidden';
       qnWidgetEl.style.position='static';
+      qnWidgetEl.classList.add('qn-in-pip');
       qnPipWin.document.body.appendChild(qnWidgetEl);
+      qnFocusInput();
       qnPipWin.addEventListener('pagehide',function(){
+        qnWidgetEl.classList.remove('qn-in-pip');
         qnWidgetEl.style.position='fixed';
         qnWidgetEl.style.right='90px';
         qnWidgetEl.style.bottom='26px';
@@ -1519,6 +1629,13 @@ async function openQN(){
       /* sem suporte real a Picture-in-Picture nesta sessão — segue fixo na aba mesmo */
     }
   }
+  qnFocusInput();
+}
+
+function qnFocusInput(){
+  if(qnMode!=='lg')return;
+  const input=qnWidgetEl.querySelector('#qn-input');
+  if(input)setTimeout(()=>input.focus(),50);
 }
 
 function closeQN(){
